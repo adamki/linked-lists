@@ -200,9 +200,47 @@ class LinkedListTest < Minitest::Test
     list.append("tapatio")
     list.append("chilula")
     list.append("sriracha")
-    assert_equal 2, list.find_by_index(index)
+    list.append("tabasco")
+    assert_equal "sriracha", list.find_by_index(3)
   end
 
+  def test_it_can_find_a_node_by_if_list_length_is_only_one
+    list = LinkedList.new("start")
+    list.append("tapatio")
+    assert_equal "tapatio", list.find_by_index(1)
+  end
+
+  def test_it_returns_nil_if_search_param_doesnt_exist
+    skip
+    list = LinkedList.new("start")
+    list.append("tapatio")
+    assert_equal nil, list.find_by_index(2)
+  end
+
+#=====find_by_value====================================================
+
+def test_it_can_find_node_position_by_data
+  list = LinkedList.new("start")
+  list.append("tapatio")
+  list.append("chilula")
+  list.append("sriracha")
+  list.append("tabasco")
+  assert_equal 3, list.find_by_data("chilula")
+  assert_equal 1, list.find_by_data("start")
+end
+
+#=====remove_by_index==================================================
+
+  def test_it_can_remove_a_node_by_index
+    list = LinkedList.new("start")
+    list.append("tabasco")
+    list.append("chilula")
+    list.append("sriracha")
+    list.append("tapatio")
+    list.remove_by_index(2)
+    assert_equal "chilula", list.head.next_node.data
+
+  end
 
 
 

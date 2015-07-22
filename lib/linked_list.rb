@@ -66,6 +66,41 @@ class LinkedList
     @index
   end
 
+  def find_by_index(index)
+    temp = @head
+    count = 0
+    until count == index
+      temp = temp.next_node
+      count += 1
+    end
+    temp.data
+  end
+
+  def find_by_data(item)
+    temp = @head
+    found = false
+    count = 0
+    until temp.data == item || temp.next_node == nil
+      temp = temp.next_node
+      count += 1
+    end
+    found = true if temp.data == item
+    found
+    count += 1
+  end
+
+  def remove_by_index(index)
+    temp = @head
+    count = 0
+    until count == index
+      temp = temp.next_node
+      count += 1
+    end
+    
+
+
+  end
+
 
 
 end
