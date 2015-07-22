@@ -7,6 +7,7 @@ class LinkedList
     @head = Node.new(data, next_node)
     @index = 1
   end
+
   def self.index
     @index
   end
@@ -32,14 +33,21 @@ class LinkedList
 
   def insert(position, value)
     temp = @head
-    until @index == position
+    until position == index
       temp = temp.next_node
     end
     temp_next_node = temp.next_node
     temp.next_node = Node.new(value, temp_next_node)
   end
 
-
+  def include?(item)
+    temp = @head
+    until temp.data == item
+      temp = temp.next_node
+      false
+    end
+    true
+  end
 
 end
 

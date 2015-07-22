@@ -2,8 +2,8 @@
 # SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
-require './node'
-
+require "./lib/node"
+require "./lib/linked_list"
 
 class Listtest < Minitest::Test
   def test_nil_node
