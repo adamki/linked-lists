@@ -31,43 +31,41 @@ class LinkedList
     @index += 1
   end
 
-  def insert(position, value)
+  def insert(position, data)
     temp = @head
-    until position == index
+    counter = 1
+    while counter != position
+      counter += 1
       temp = temp.next_node
     end
-    temp_next_node = temp.next_node
-    temp.next_node = Node.new(value, temp_next_node)
+    inserted_node = Node.new(data, temp.next_node)
+    temp.next_node = inserted_node
+    @index += 1
+  end
+
+  def pop
+    temp = @head
+    until temp.next_node == tail
+      temp = temp.next_node
+    end
+    temp.next_node = nil
+    @index -= 1
   end
 
   def include?(item)
     temp = @head
-    until temp.data == item
+    found = false
+    until temp.data == item || temp.next_node == nil
       temp = temp.next_node
-      false
     end
-    true
+    found = true if temp.data == item
+    found
   end
 
+  def count
+    @index
+  end
+
+
+
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# new_list = List.new
-# new_list.append("this is my data")
-# node = Node.new("this is my data")
-# new_list.append(node)
