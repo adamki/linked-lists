@@ -77,7 +77,6 @@ class LinkedList
       temp = temp.next_node
       count += 1
     end
-
     temp && temp.data
   end
 
@@ -113,13 +112,10 @@ class LinkedList
 
   def remove_by_data(item)
     temp = @head
-    found = false
-    until temp.data == item #|| temp.next_node == nil
+    until temp.next_node.data == item #|| temp.next_node == nil
       temp = temp.next_node
-      if temp.data == item
-        temp.next_node.next_node
-      end
     end
+    temp.next_node = temp.next_node.next_node
   end
 
 

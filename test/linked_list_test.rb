@@ -1,3 +1,4 @@
+
 require "pry";
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -275,59 +276,74 @@ class LinkedListTest < Minitest::Test
 
 #=====find_by_value====================================================
 
-def test_it_can_find_node_position_by_data
-  list = LinkedList.new("start")
-  list.append("tapatio")
-  list.append("chilula")
-  list.append("sriracha")
-  list.append("tabasco")
-  assert_equal 2, list.find_by_data("chilula")
-  assert_equal 0, list.find_by_data("start")
-end
+  def test_it_can_find_node_position_by_data
+    list = LinkedList.new("start")
+    list.append("tapatio")
+    list.append("chilula")
+    list.append("sriracha")
+    list.append("tabasco")
+    assert_equal 2, list.find_by_data("chilula")
+    assert_equal 0, list.find_by_data("start")
+  end
 
-#=====remove_by_index==================================================
+  def test_it_can_find_node_if_value_is_at_beginning
+    list = LinkedList.new("start")
+    list.append("tapatio")
+    list.append("chilula")
+    list.append("sriracha")
+    assert_equal 0, list.find_by_data("start")
+  end
 
-def test_it_can_remove_a_node_by_index
-  list = LinkedList.new("start")
-  list.append("tabasco")
-  list.append("chilula")
-  list.append("sriracha")
-  list.remove_by_index(1)
-  assert_equal "chilula", list.find_by_index(1)
-  list.remove_by_index(1)
-  assert_equal "sriracha", list.find_by_index(1)
-end
+  def test_it_can_find_node_if_value_is_at_end
+    list = LinkedList.new("start")
+    list.append("tapatio")
+    list.append("chilula")
+    list.append("sriracha")
+    assert_equal 3, list.find_by_data("sriracha")
+  end
 
-def test_it_can_not_remove_head_node
-  list = LinkedList.new("start")
-  list.append("tabasco")
-  list.append("chilula")
-  list.remove_by_index(0)
-  assert_equal "start", list.find_by_index(0)
-  assert_equal "tabasco", list.find_by_index(1)
-end
+  #=====remove_by_index==================================================
 
-  #=====remove_by_value==================================================
+  def test_it_can_remove_a_node_by_index
+    list = LinkedList.new("start")
+    list.append("tabasco")
+    list.append("chilula")
+    list.append("sriracha")
+    list.remove_by_index(1)
+    assert_equal "chilula", list.find_by_index(1)
+    list.remove_by_index(1)
+    assert_equal "sriracha", list.find_by_index(1)
+  end
 
-def test_it_can_remove_a_node_by_value
-  list = LinkedList.new("start")
-  list.append("chilula")
-  list.append("sriracha")
-  list.append("tapatio")
-  list.remove_by_data("chilula")
-  assert_equal "sriracha", list.find_by_index(2)
-end
+  def test_it_can_not_remove_head_node
+    list = LinkedList.new("start")
+    list.append("tabasco")
+    list.append("chilula")
+    list.remove_by_index(0)
+    assert_equal "start", list.find_by_index(0)
+    assert_equal "tabasco", list.find_by_index(1)
+  end
 
-def test_it_can_remove_two_nodes
-  list = LinkedList.new("start")
-  list.append("chilula")
-  list.append("sriracha")
-  list.append("tapatio")
-  list.remove_by_data("chilula")
-  assert_equal "sriracha", list.find_by_index(2)
-  list.remove_by_data("sriracha")
-  assert_equal "tapatio", list.find_by_index(2)
-end
+  # def test_it_can_not_remove_node_that_does_not_exist
+  #   skip
+  #   list = LinkedList.new("start")
+  #   list.append("tabasco")
+  #   list.append("chilula")
+  #   list.remove_by_index(5)
+  #   assert_equal nil, list
+  # end
+
+    #=====remove_by_value==================================================
+
+  def test_it_can_remove_a_node_by_value
+    list = LinkedList.new("start")
+    list.append("chilula")
+    list.append("sriracha")
+    list.append("tapatio")
+    list.remove_by_data("chilula")
+    assert_equal "tapatio", list.find_by_index(2)
+  end
+
 
 
 
