@@ -357,4 +357,22 @@ class LinkedListTest < Minitest::Test
     list.append("tapatio")
     assert_equal 5, list.find_distance(list.find_by_data("cheetos"), list.find_by_data("tapatio"))
   end
+
+  def test_it_can_work_when_search_nodes_are_swapped
+    list = LinkedList.new(0)
+    list.append("cheetos")
+    list.append("doritos")
+    list.append(3)
+    list.append("chilula")
+    list.append("sriracha")
+    list.append("tapatio")
+    assert_equal 5, list.find_distance(list.find_by_data("tapatio"), list.find_by_data("cheetos"))
+  end
+
+  def test_it_is_ok_returning_0_if_nodes_are_the_same
+    list = LinkedList.new(0)
+    list.append("cheetos")
+    list.append("doritos")
+    assert_equal 0 ,list.find_distance(list.find_by_data("cheetos"), list.find_by_data("cheetos"))
+  end
 end
