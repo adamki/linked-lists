@@ -119,10 +119,7 @@ class LinkedList
   end
 
   def find_distance(node_1, node_2)
-    distance =  node_2 - node_1
-    distance.abs
+    (find_by_data(node_1)-find_by_data(node_2)).abs
   end
-
-
 
 end

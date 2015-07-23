@@ -344,7 +344,6 @@ class LinkedListTest < Minitest::Test
     assert_equal "tapatio", list.find_by_index(2)
   end
 
-
   #======EXTENSIONS==*==I think I cheated===========================================
 
   def test_it_can_find_the_distance_between_two_nodes
@@ -355,7 +354,7 @@ class LinkedListTest < Minitest::Test
     list.append("chilula")
     list.append("sriracha")
     list.append("tapatio")
-    assert_equal 5, list.find_distance(list.find_by_data("cheetos"), list.find_by_data("tapatio"))
+    assert_equal 5, list.find_distance("cheetos","tapatio")
   end
 
   def test_it_can_work_when_search_nodes_are_swapped
@@ -366,13 +365,14 @@ class LinkedListTest < Minitest::Test
     list.append("chilula")
     list.append("sriracha")
     list.append("tapatio")
-    assert_equal 5, list.find_distance(list.find_by_data("tapatio"), list.find_by_data("cheetos"))
+    assert_equal 5, list.find_distance("tapatio","cheetos")
   end
 
   def test_it_is_ok_returning_0_if_nodes_are_the_same
     list = LinkedList.new(0)
     list.append("cheetos")
     list.append("doritos")
-    assert_equal 0 ,list.find_distance(list.find_by_data("cheetos"), list.find_by_data("cheetos"))
+    assert_equal 1 ,list.find_distance("doritos", "cheetos")
   end
+
 end
