@@ -118,6 +118,9 @@ class LinkedList
     temp.next_node = temp.next_node.next_node
   end
 
+  def find_distance(node_1, node_2)
+    distance =  node_2 - node_1
+  end
 
 
 

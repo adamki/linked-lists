@@ -345,6 +345,16 @@ class LinkedListTest < Minitest::Test
   end
 
 
+  #======EXTENSIONS==*==I think I cheated===========================================
 
-
+  def test_it_can_find_the_distance_between_two_nodes
+    list = LinkedList.new(0)
+    list.append("cheetos")
+    list.append("doritos")
+    list.append(3)
+    list.append("chilula")
+    list.append("sriracha")
+    list.append("tapatio")
+    assert_equal 5, list.find_distance(list.find_by_data("cheetos"), list.find_by_data("tapatio"))
+  end
 end
