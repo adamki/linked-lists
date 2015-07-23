@@ -35,6 +35,9 @@ class LinkedList
     temp = @head
     counter = 1
     while counter != position
+      if position > count || position == 0
+        return nil
+      end
       counter += 1
       temp = temp.next_node
     end
@@ -69,11 +72,13 @@ class LinkedList
   def find_by_index(index)
     temp = @head
     count = 0
-    until count == index
+    # until count == index || !temp
+    while temp && count < index
       temp = temp.next_node
       count += 1
     end
-    temp.data
+
+    temp && temp.data
   end
 
   def find_by_data(item)
@@ -85,21 +90,38 @@ class LinkedList
       count += 1
     end
     found = true if temp.data == item
-    found
-    count += 1
+    if found
+      count
+    else
+      nil
+    end
   end
 
   def remove_by_index(index)
     temp = @head
     count = 0
+    if index < 1
+      @head = head
+      return
+    end
     until count == index
-      temp = temp.next_node
+      temp.next_node = temp.next_node
       count += 1
     end
-    
-
-
+    temp.next_node = temp.next_node.next_node
   end
+
+  def remove_by_data(item)
+    temp = @head
+    found = false
+    until temp.data == item #|| temp.next_node == nil
+      temp = temp.next_node
+      if temp.data == item
+        temp.next_node.next_node
+      end
+    end
+  end
+
 
 
 

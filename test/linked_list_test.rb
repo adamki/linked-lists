@@ -96,6 +96,47 @@ class LinkedListTest < Minitest::Test
     assert_equal "new", list.head.next_node.next_node.data
   end
 
+  def test_it_can_insert_on_a_brand_new_list
+    list = LinkedList.new("start")
+    list.insert(1, "new")
+    assert_equal "new", list.head.next_node.data
+  end
+
+  def test_it_cannot_insert_on_or_before_head
+    list = LinkedList.new("start")
+    list.insert(0, "new")
+    assert_equal nil, list.insert(0, "new")
+    assert_equal "start", list.head.data
+  end
+
+  def test_it_does_not_insert_to_a_non_existent_position
+    list = LinkedList.new("start")
+    list.append("2thing")
+    list.append("3more")
+    list.append("4better")
+    list.insert(7, "This space does not exist")
+    assert_equal nil, list.find_by_index(7)
+  end
+
+  def test_that_inserting_after_tail_returns_nil
+    #is_the_same_as_append
+    list = LinkedList.new("start")
+    list.append("2thing")
+    list.append("3more")
+    list.append("4better")
+    list.insert(5, "This is an append")
+    assert_equal nil, list.find_by_index(5)
+  end
+
+  # def test_it_does_not_insert_to_a_negative_position
+  #   list = LinkedList.new("start")
+  #   list.append("2thing")
+  #   list.append("3more")
+  #   list.append("4better")
+  #   list.insert(-1, "This space does not exist")
+  #   assert_equal nil, list.find_by_index(-1)
+  # end
+
 #=======Pop=========================================================
 
   def test_it_can_pop_the_tail_of_list
@@ -106,7 +147,7 @@ class LinkedListTest < Minitest::Test
     assert_equal 1, list.tail.data
   end
 
-  def test_does_not_break_when_items_are_popped_from_list
+  def test_that_list_count_correctly_reflects_pop_event
     list = LinkedList.new("start")
     list.append("bread")
     list.append("crackers")
@@ -123,7 +164,8 @@ class LinkedListTest < Minitest::Test
     list.append("peanuts")
     list.append("candy")
     list.insert(2, "peanut-butter")
-    assert_equal 6, list.count
+    list.pop
+    assert_equal 5, list.count
   end
 
 #=====Include?===========================================================
@@ -171,7 +213,12 @@ class LinkedListTest < Minitest::Test
 
 #=====Return Head===========================================================
 
-  def test_it_can_return_the_head_value
+  def test_it_can_return_head_data
+    list = LinkedList.new("start")
+    assert_equal "start", list.head.data
+  end
+
+  def test_it_can_return_the_head_value_amonst_other_nodes
     list = LinkedList.new("start")
     list.append(1)
     list.append(2)
@@ -182,6 +229,11 @@ class LinkedListTest < Minitest::Test
   end
 
 #======Return Tail=====================================================
+
+  def test_it_can_return_tail_value
+    list = LinkedList.new("start")
+    assert_equal "start", list.tail.data
+  end
 
   def test_it_can_return_the_tail_value
     list = LinkedList.new("start")
@@ -204,6 +256,11 @@ class LinkedListTest < Minitest::Test
     assert_equal "sriracha", list.find_by_index(3)
   end
 
+  def test_it_can_find_head_data_at_zero_index
+    list = LinkedList.new("start")
+    assert_equal "start", list.find_by_index(0)
+  end
+
   def test_it_can_find_a_node_by_if_list_length_is_only_one
     list = LinkedList.new("start")
     list.append("tapatio")
@@ -211,10 +268,9 @@ class LinkedListTest < Minitest::Test
   end
 
   def test_it_returns_nil_if_search_param_doesnt_exist
-    skip
     list = LinkedList.new("start")
     list.append("tapatio")
-    assert_equal nil, list.find_by_index(2)
+    assert_equal nil, list.find_by_index(3)
   end
 
 #=====find_by_value====================================================
@@ -225,23 +281,53 @@ def test_it_can_find_node_position_by_data
   list.append("chilula")
   list.append("sriracha")
   list.append("tabasco")
-  assert_equal 3, list.find_by_data("chilula")
-  assert_equal 1, list.find_by_data("start")
+  assert_equal 2, list.find_by_data("chilula")
+  assert_equal 0, list.find_by_data("start")
 end
 
 #=====remove_by_index==================================================
 
-  def test_it_can_remove_a_node_by_index
-    list = LinkedList.new("start")
-    list.append("tabasco")
-    list.append("chilula")
-    list.append("sriracha")
-    list.append("tapatio")
-    list.remove_by_index(2)
-    assert_equal "chilula", list.head.next_node.data
+def test_it_can_remove_a_node_by_index
+  list = LinkedList.new("start")
+  list.append("tabasco")
+  list.append("chilula")
+  list.append("sriracha")
+  list.remove_by_index(1)
+  assert_equal "chilula", list.find_by_index(1)
+  list.remove_by_index(1)
+  assert_equal "sriracha", list.find_by_index(1)
+end
 
-  end
+def test_it_can_not_remove_head_node
+  list = LinkedList.new("start")
+  list.append("tabasco")
+  list.append("chilula")
+  list.remove_by_index(0)
+  assert_equal "start", list.find_by_index(0)
+  assert_equal "tabasco", list.find_by_index(1)
+end
 
+  #=====remove_by_value==================================================
+
+def test_it_can_remove_a_node_by_value
+  list = LinkedList.new("start")
+  list.append("chilula")
+  list.append("sriracha")
+  list.append("tapatio")
+  list.remove_by_data("chilula")
+  assert_equal "sriracha", list.find_by_index(2)
+end
+
+def test_it_can_remove_two_nodes
+  list = LinkedList.new("start")
+  list.append("chilula")
+  list.append("sriracha")
+  list.append("tapatio")
+  list.remove_by_data("chilula")
+  assert_equal "sriracha", list.find_by_index(2)
+  list.remove_by_data("sriracha")
+  assert_equal "tapatio", list.find_by_index(2)
+end
 
 
 
